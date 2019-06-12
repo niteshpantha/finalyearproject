@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block meta_links %}
+{% endblock %}
+{% block style_links%}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- <div class="container">
+    {% csrf_token %}
+
+    <p>List of Selected-Carts</p>
+
+    {% for carts  in cart_list %}
+    <div class="my-3">
+        <img src="{{cart.image.url}" alt="">
+        <h3>{{carts.name}}</h3>
+        <p class=" text-muted">{{carts.date}}</p>
+    </div>
+    {% endfor %}
+
+</div> -->
+
+<div class="container mt-5">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <table class="table table-dark ">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Items</th>
+                        <th>content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart in cart_list %}
+                    <tr>
+                        <td>1</td>
+                        <td>{{cart.name}}</td>
+                        <td>{{cart.content}}</td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <th colspan="3">Order TOtal:</th>
+                    </tr>
+                    <tr>
+                        <th><button class="btn btn-info"><a href="{% url 'home:index' %}" class="">Continue
+                                    Shopping</a></button>
+                        </th>
+                        <th><button class="btn btn-warning"><a href="{% url 'cart:checkout' %}">Proceed to
+                                    Checkout</a></button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<!-- 
+{% for article in articles %}
+<div class="my-3">
+    <h3>{{article.title}}</h3>
+    <p class="text-muted">{{article.date}}</p>
+</div>
+{% endfor %} -->
+
+
+{% endblock content %}
+
+{% block script_links%}
+{% endblock %}
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block meta_links %}
+{% endblock %}
+{% block style_links%}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="container mt-5">
+    {% csrf_token %}
+    <h1>Login</h1>
+    <h6>login using social network:</h6>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary">Facebook</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-secondary">Twitter</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-danger">Google</button>
+        </div>
+    </div>
+
+    or insert your account information:
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Logged me In</label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
+    <h6><a href="{% url 'cart:register' %}">No account?Create one here.</a></h6>
+</div>
+{% endblock content %}
+
+{% block script_links%}
+{% endblock %}
+{% block scripts %}
+{% endblock %}
