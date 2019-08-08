@@ -1,19 +1,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from cart.forms import CartForm
 
 from .forms import ContactForm
 from .models import Contact
 from django.contrib import messages
+from cart.models import Bike
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    # contact_list = Contact.objects.all()
+    bike_list = Bike.objects.all()
+    context = {
+        "bike_list": bike_list
 
-    # context = {
-    #     "contact_list": contact_list,
-
-    # }
-    return render(request, 'home/index.html')
+    }
+    return render(request, 'home/index.html', context)
 
 
 def contactFormHandle(request):

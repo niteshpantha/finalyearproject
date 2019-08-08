@@ -10,7 +10,6 @@
 {{instance.title}}
 {% endblock %}
 
-
 {% block content %}
 
 <div class="bd-example">
@@ -56,169 +55,27 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-
-
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-                <div class="bike">
-                    <div>
-                        <img src="{% static 'img/ns200.png' %}" alt="apache" class="myimage">
-                    </div>
-                    <div class="card-body">
-                        Name:NS200<br>
-                        Price:320000<br>
-                        <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add
-                                to
-                                cart</a></button>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col">
-                <div class="bike">
-                    <div>
-                        <img src="{% static 'img/apache.jpg' %}" alt="apache" class="myimage">
-                    </div>
-                    <div class="card-body">
-                        Name:Apache<br>
-                        Price:450000<br>
-                        <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add
-                                to
-                                cart</a></button>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col">
-                <div class="bike">
-                    <div>
-                        <img src="{% static 'img/classicbullet.jpg' %}" alt="apache" class="myimage">
-                    </div>
-                    <div class="card-body">
-                        Name:Bullet Classic<br>
-                        Price:510000<br>
-                        <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add
-                                to
-                                cart</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row">
-        <div class="col">
+        {% for bike in bike %}
+        <div class="col-sm-6 col-sm-offset-3">
             <div class="bike">
                 <div>
-                    <img src="{% static 'img/crossfire250cc.png' %}" alt="apache" class="myimage">
+                    <img src="{{bike.image.url}}" alt="{{bike.name}}" class="myimage">
                 </div>
                 <div class="card-body">
-                    Name:crossfire250cc<br>
-                    Price:670000<br>
-                    <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add to
-                            cart</a></button>
-                </div>
-
-            </div>
-        </div>
-        <div class="col">
-            <div class="bike">
-                <div>
-                    <img src="{% static 'img/herohondasplender.jpg' %}" alt="apache" class="myimage">
-                </div>
-                <div class="card-body">
-                    Name:super splender<br>
-                    Price:180000<br>
-                    <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add to
-                            cart</a></button>
-                </div>
-
-            </div>
-        </div>
-        <div class="col">
-            <div class="bike">
-                <div>
-                    <img src="{% static 'img/hornet160r.jpg' %}" alt="apache" class="myimage">
-                </div>
-                <div class="card-body">
-                    Name:hornet160r<br>
-                    Price:320000<br>
-                    <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add to
-                            cart</a></button>
+                    Name:{{bike.name}}<br>
+                    Price:{{bike.price}}<br>
+                    <button class="btn btn-secondary" id="name" value="{{bike.id}}" name="bike_id" type="submit"><a
+                            href="{% url 'cart:bike_view' %}" class="sobit">View-Detail</a></button>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
-</div>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <div class="bike">
-                <div>
-                    <img src="{% static 'img/pulsar150.jpg' %}" alt="apache" class="myimage">
-                </div>
-                <div class="card-body">
-                    Name:pulsar150<br>
-                    Price:290000<br>
-                    <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add to
-                            cart</a></button>
-                </div>
-
-            </div>
-        </div>
-        <div class="col">
-            <div class="bike">
-                <div>
-                    <img src="{% static 'img/ns200.png' %}" alt="apache" class="myimage">
-                </div>
-                <div class="card-body">
-                    Name:ns200<br>
-                    Price:310000<br>
-                    <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add to
-                            cart</a></button>
-                </div>
-
-            </div>
-        </div>
-        <div class="col">
-            <div class="bike">
-                <div>
-                    <img src="{% static 'img/fz25.png' %}" alt="apache" class="myimage">
-                </div>
-                <div class="card-body">
-                    Name:fz25<br>
-                    Price:320000<br>
-                    <button class="btn btn-secondary" id="name"><a href="{% url 'cart:index' %}" class="sobit">Add to
-                            cart</a></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-
-
-
-
-<script src="js/jquery.js">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-<script src="js/bootstrap.js"></script>
-</body>
-
-
-
-
-</html>
-
-{% endblock content %}
+{% endblock %}
 
 {% block script_links%}
 {% endblock %}

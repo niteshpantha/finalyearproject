@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block meta_links %}
+{% endblock %}
+{% block style_links%}
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <img src="{{bike.image.url}}" alt="{{bike.name}}" class="imagehere">
+        </div>
+        <div class="col">
+            <form action="{% url 'cart:add_to_cart' %}" method="POST">
+                {% csrf_token %}
+                <button class=" btn btn-secondary" id="name" value="{{bike.id}}" name="bike_id" type="submit"><a href=""
+                        class="sobit">Add
+                        to
+                        cart</a></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <p class="suzzan">{{bike.name}}</p>
+
+</div>
+<div>
+    {{bike.content}}
+</div>
+<div>
+    <p class="suzzan">REVIEW</p>
+</div>
+</div>
+{% endblock %}
+
+{% block script_links%}
+{% endblock %}
+{% block scripts %}
+{% endblock %}

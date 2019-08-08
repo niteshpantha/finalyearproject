@@ -8,23 +8,11 @@
 
 {% block content %}
 
-<!-- <div class="container">
-    {% csrf_token %}
 
-    <p>List of Selected-Carts</p>
 
-    {% for carts  in cart_list %}
-    <div class="my-3">
-        <img src="{{cart.image.url}" alt="">
-        <h3>{{carts.name}}</h3>
-        <p class=" text-muted">{{carts.date}}</p>
-    </div>
-    {% endfor %}
 
-</div> -->
-
+{% csrf_token %}
 <div class="container mt-5">
-    {% csrf_token %}
     <div class="row">
         <div class="col">
             <table class="table table-dark ">
@@ -32,20 +20,21 @@
                     <tr>
                         <th>No</th>
                         <th>Items</th>
-                        <th>content</th>
+                        <th>Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for cart in cart_list %}
+                    {% for carts in carts %}
                     <tr>
-                        <td>1</td>
-                        <td>{{cart.name}}</td>
-                        <td>{{cart.content}}</td>
+                        <td>{{forloop.count}}</td>
+                        <td>{{cart.bike_id}}</td>
+                        <td>{{cart.price}}</td>
                     </tr>
                     {% endfor %}
 
                     <tr>
                         <th colspan="3">Order TOtal:</th>
+                        <th>{{x.price}}</th>
                     </tr>
                     <tr>
                         <th><button class="btn btn-info"><a href="{% url 'home:index' %}" class="">Continue
@@ -61,13 +50,6 @@
     </div>
 </div>
 </div>
-<!-- 
-{% for article in articles %}
-<div class="my-3">
-    <h3>{{article.title}}</h3>
-    <p class="text-muted">{{article.date}}</p>
-</div>
-{% endfor %} -->
 
 
 {% endblock content %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block meta_links %}
+{% endblock %}
+{% block style_links%}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <table class="table table-dark ">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Items</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart in carts %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cart.bike_id}}
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <h3>{{cart.object}}</h3>
+                                <a href="{% url 'cart:bike_delete' cart.id %}">Remove</a></td>
+
+                        </form>
+                        <td>{{cart.quantity}}
+                            <a href="">Edit</a>
+                        </td>
+                        <td>{{cart.bike_id.price}}</td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <th colspan="3">Order TOtal:</th>
+                        <th colspan="5">{{total}}</th>
+                    </tr>
+                    <tr>
+                        <th><button class="btn btn-info"><a href="{% url 'home:index' %}" class="">Continue
+                                    Shopping</a></button>
+                        </th>
+                        <th><button class="btn btn-warning"><a href="{% url 'cart:checkout' %}">Proceed to
+                                    Checkout</a></button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script_links%}
+{% endblock %}
+{% block scripts %}
+{% endblock %}

@@ -42,10 +42,10 @@ body{
     
 }
 
-/* .myimage{
-    height: 200px;
-    width: 100px;
-} */
+.imagehere{
+    height: 400px;
+    width: 500px;
+}
 
 
 .bike{
@@ -63,4 +63,13 @@ body{
 /* .container{
     margin-left: 0 !important;
 } */
+
+.dropdown-toggle::after{
+    border : none !important;
+}
+
+.user-dropdown{
+    background-color: transparent   !important;
+    border-color: transparent !important;
+}
 
