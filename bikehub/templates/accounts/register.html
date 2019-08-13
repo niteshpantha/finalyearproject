@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block meta_links %}
+{% endblock %}
+{% block style_links%}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1>Create account here.</h1>
+    <h6>insert your account information</h6>
+    <form action="register">
+        <input type="radio" name="gender" value="male"> male
+        <input type="radio" name="gender" value="female"> female
+        <input type="radio" name="gender" value="other"> Other
+    </form>
+    <form action="{% url 'accounts:register' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleInputText">First Name</label>
+            <input type="text" class="form-control" id="exampleInputText" aria-describedby="emailHelp"
+                placeholder="Enter First Name" name="first_name">
+            <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputText">Last Name</label>
+            <input type="text" class="form-control" id="exampleInputText" aria-describedby="emailHelp"
+                placeholder="Enter Last Name" name="last_name">
+            <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputText">Username</label>
+            <input type="text" class="form-control" id="exampleInputText" aria-describedby="emailHelp"
+                placeholder="Enter Username" name="username">
+            <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter email" name="email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password1</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                name="password1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword2">Password2</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password"
+                name="password2">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Keep me logged in.</label>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">Register</button>
+    </form>
+    <div>
+        {% for message in messages %}
+        <h4> {{message}} </h4>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+
+{% block script_links%}
+{% endblock %}
+{% block scripts %}
+{% endblock %}

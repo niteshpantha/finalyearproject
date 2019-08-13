@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from cart.forms import CartForm
+from cart.forms import CartItemForm
 
 from .forms import ContactForm
 from .models import Contact

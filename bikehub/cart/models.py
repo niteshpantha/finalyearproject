@@ -24,23 +24,22 @@ class Bike(models.Model):
         return reverse("cart:bike_view", kwargs={"id": self.id})
 
 
-class CartItem(models.Model):
-    bike_id = models.ForeignKey(
-        Bike, on_delete=models.CASCADE, default=None)
-    cart_id = models.ForeignKey(
-        Cart,  on_delete=models.CASCADE, blank=True, null=True)
-    # image = models.ImageField(upload_to='cart/',
-    #                           default='', blank=True, null=True)
-    quantity = models.PositiveIntegerField(default=1)
-
-
 class Cart(models.Model):
     user_id = models.ForeignKey(
-        settings.AUTH_USER_MODEL,  on_delete=models.CASCADE, blank=True, null=True)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, )
+
+    def ___str__(self):
+        return self.user_id
 
 
-def __str__(self):
-    return self.bike_id
+class CartItem(models.Model):
+    bike_id = models.ForeignKey(Bike, on_delete=models.CASCADE, default=None)
+    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE, default=None)
+    quantity = models.PositiveIntegerField()
+    price = models.FloatField(default=0.0)
+
+    def __str__(self):
+        return self.cart_id
 
 
 STATUS_CHOICES = (
@@ -56,8 +55,7 @@ class Order(models.Model):
         Bike, on_delete=models.CASCADE, default=None)
     user_id = models.ForeignKey(
         settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now=True, auto_now_add=False)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, default=None)
+    # date = models.DateTimeField(auto_now=True, auto_now_add=False)
     status = models.TextField(
         max_length=120, choices=STATUS_CHOICES, null=True)
     first_name = models.CharField(max_length=120, default="nitesh")
@@ -72,3 +70,14 @@ class Order(models.Model):
 
     def __str__(self):
         return self.bike_id
+
+
+class OrderItem(models.Model):
+    bike_id = models.ForeignKey(
+        CartItem, on_delete=models.CASCADE, default=None)
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE, default=None)
+    quantity = models.PositiveIntegerField()
+    price = models.FloatField(default=0.0)
+
+    def __str__(self):
+        return self.order_id

@@ -11,13 +11,13 @@
     <!-- template tags-->
     {% load static %}
     {% load fontawesome %}
-    <!-- {% fontawesome_stylesheet %} -->
+    {% fontawesome_stylesheet %}
 
     <title>{% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
@@ -66,17 +66,19 @@
                             <a href="#" class="nav-link"><i class="fa fa-user"></i></a>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{% url 'cart:account' %}"><i class="fas fa-cog"></i> My
-                                Account</a>
-                            <a class="dropdown-item" href="{% url 'cart:account' %}"><i class="fas fa-sign-in-alt"></i>
-                                Log In</a>
-                            <a class="dropdown-item" href="logout.html"><i class="fas fa-sign-out-alt"></i> logout</a>
-                            <a class="dropdown-item" href="{% url 'cart:register' %}"><i class="fa fa-user"></i>
+
+                            {% if user.is_authenticated %}
+                            <!-- <li>Hello , {{user.first_name}}</li> -->
+                            <a class="dropdown-item" href="accounts/logout"><i class="fas fa-sign-out-alt"></i>
+                                logout</a>
+                            {% else %}
+                            <a class="dropdown-item" href="accounts/register"><i class="fa fa-user"></i>
                                 Register</a>
-                            <a class="dropdown-item" href="{% url 'cart:checkout' %}"><i
-                                    class="fas fa-check-circle"></i>
+                            <a class="dropdown-item" href="accounts/login"><i class="fas fa-sign-in-alt"></i>
+                                Log In</a>
+                            {% endif %}
+                            <a class="dropdown-item" href="cart/checkout"><i class="fas fa-check-circle"></i>
                                 Checkout</a>
-                            <a class="dropdown-item" href="wishlist.html"><i class="fas fa-heart"></i> My Wishlists</a>
                         </div>
                     </div>
                 </li>

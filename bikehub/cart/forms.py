@@ -1,9 +1,15 @@
 from django import forms
 
-from .models import Cart
+from .models import CartItem
 
 
-class CartForm(forms.ModelForm):
+class CartItemForm(forms.ModelForm):
     class Meta:
-        model = Cart
-        fields = ['bike_id', 'user_id']
+        model = CartItem
+        # fields = ['bike_id', 'cart_id', 'quantity', 'price']
+        fields = ['bike_id']
+
+
+class OrderItemForm(forms.ModelForm):
+    class Meta:
+        fields = ['bike_id', 'order_id', 'quantity', 'price']
