@@ -134,13 +134,18 @@ def checkout(request):
             cart = Cart.objects.get(user_id=user.id)
             if user_id in user_id:
                 carts = CartItem.objects.all()
-                order = carts.objects.all()
-                new_order, created = Order.objects.get_or_create(order=order)
-                if created:
-                    new_order.order_id = str(time.time())
-                    new_order.save()
-                if new_order.status == "Finished":
-                    cart.delete()
+                order = OrderItem.objects.all()
+                if order in order:
+                    c1 = carts.copy()
+                    c2 = c1.save()
+
+                    new_order, created = order.objects.get_or_create(
+                        order=order)
+                    if created:
+                        new_order.order_id = str(time.time())
+                        new_order.save()
+                    if new_order.status == "Finished":
+                        cart.delete()
     context = {
         # "form": form,
         # "forms": forms

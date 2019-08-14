@@ -56,4 +56,5 @@ def blog(request):
 
 
 def shop(request):
+
     return render(request, 'home/shop.html')
