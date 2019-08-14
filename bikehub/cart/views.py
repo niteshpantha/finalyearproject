@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 import time
 # from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth.models import User, auth
+
 from django.urls import reverse
 from django.http import HttpResponse
 from .forms import CartItemForm, OrderItemForm
@@ -113,103 +115,38 @@ def checkout(request):
         email = request.POST['email']
         address = request.POST['address']
         city = request.POST['city']
+        user = auth.authenticate(first_name=first_name,
+                                 last_name=last_name, email=email)
+        if user.is_authenticated:
+            if user.is_active:
+                return redirect('/ratings/')
+            else:
+                return HttpResponse('You dont have an account with us')
+
         form = CartItemForm(request.POST)
         forms = OrderItemForm(request.POST)
-        form.save()
-        forms.save()
-        print(form.data)
-        user = request.user
-        cart = Cart.objects.get(user_id=user.id)
-        if user_id in user_id:
-            carts = CartItem.objects.all()
-            order = carts.objects.all()
-            new_order, created = Order.objects.get_or_create(order=order)
-            if created:
-                new_order.order_id = str(time.time())
-                new_order.save()
-            if new_order.status == "Finished":
-                cart.delete()
+        if form.is_valid():
+            form.save()
+            forms.save()
+            print(form.data)
+            print(forms.data)
+            user = request.user
+            cart = Cart.objects.get(user_id=user.id)
+            if user_id in user_id:
+                carts = CartItem.objects.all()
+                order = carts.objects.all()
+                new_order, created = Order.objects.get_or_create(order=order)
+                if created:
+                    new_order.order_id = str(time.time())
+                    new_order.save()
+                if new_order.status == "Finished":
+                    cart.delete()
     context = {
         # "form": form,
         # "forms": forms
     }
     return render(request, 'cart/checkout.html', context)
 
-    # if request.method == 'POST':
-    #     first_name = request.POST['first_name']
-    #     last_name = request.POST['last_name']
-    #     email = request.POST['email']
-    #     address = request.POST['address']
-    #     city = request.POST['city']
-    #     return render(request, "home/index.html")
-    #     if form.is_valid():
-    #         form.save()
 
-    #         print(fork)
-    #         cart = CartItemForm.objects.get(id=user_id)
-    #         order = OrderItemForm.objects.get(id=order_id)
-    #         new_order, created = Order.objects.get_or_create(cart=cart)
-    #         if created:
-    #             new_order.order_id = str(time.time())
-    #             new_order.save()
-    #         if new_order.status == "Finished":
-    #             cart.delete()
-    #             return render(request, 'cart/checkout.html')
-    # else:
-    #     return redirect("/cart/add_to_cart/")
-
-    # def checkout(request):
-    #     pass
-    # selected_cart =
-    # if request.method == "POST":
-    #     if form.is_valid():
-    #         form = CartItemForm(request.POST)
-    #         selected_cart = request.form['carts']
-    #         cart_here = CartItem.objects.get['selected_cart']
-    #         del request.form['selected_cart']
-
-    #     else:
-    #         selected_cart = None
-    #         return redirect('cart/add_to_cart/')
-
-    #         new_order, created = Order.objects.get_or_create(cart=cart)
-    #         if created:
-    #             new_order.save()
-    #             cart_here.save()
-    #         if new_order.status == "Finished":
-    #             del request.form['carts']
-    # return render(request, 'cart/checkout.html')
-
-    # @login_required(login_url='/admin/login/')
-    # def add_to_cart(request, id=None):
-    #     carts = Cart.objects.all()
-    #     if request.method == 'POST':
-    #         form = CartForm(request.POST)
-    #         if form.is_valid():
-    #             print("form valid")
-    #             form.save(commit=False)
-    #             form.user = request.user
-    #             form.date = timezone.now()
-    #             form.save()
-    #             messages.success(
-    #                 request, 'You have successfully added your items in cartbox')
-    #         else:
-    #             messages.error(request, 'Error adding items in cartbox')
-
-    #     instance = get_object_or_404(Cart, id=id)
-    #     if request.method == 'GET':
-    #         form = CartForm(request.GET or None,
-    #                         request.FILES or None, instance=instance)
-    #         if form.is_valid():
-    #             instance.delete()
-    #             messages.success(
-    #                 request, 'You have successfully deleted the selected cart')
-    #         else:
-    #             messages.error(
-    #                 request, 'You have failed deleting the previously selected cart')
-    #     context = {
-    #         "carts": carts,
-    #         "instance": instance,
-    #         "form": form
-    #     }
-    #     return render(request, 'cart/add_to_cart.html', context)
+def ratings(request):
+    return render(request, 'cart/ratings.html')
