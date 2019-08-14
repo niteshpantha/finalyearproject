@@ -12,6 +12,7 @@ from django.utils import timezone
 from django.db.models import FloatField
 from django.db.models import Count
 from django.shortcuts import redirect
+from django.db.models import Q
 
 # Create your views here.
 
@@ -87,25 +88,52 @@ def bike_delete(request, id=None):
     return redirect('/cart/add_to_cart/')
 
 
+def search(request):
+    if request.method == 'POST':
+        srch = request.POST['srh']
+
+        if srch:
+            match = Bike.objects.filter(Q(name__icontains=srch) |
+                                        (Q(price__icontains=srch))
+                                        )
+            if match:
+                return render(request, 'cart/search.html', {'sr': match})
+            else:
+                messages.error(request, 'no result found')
+        else:
+            return redirect('cart/search/')
+    return render(request, 'cart/search.html')
+
+
 def checkout(request):
 
     if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        address = request.POST['address']
+        city = request.POST['city']
         form = CartItemForm(request.POST)
+        forms = OrderItemForm(request.POST)
+        form.save()
+        forms.save()
+        print(form.data)
         user = request.user
         cart = Cart.objects.get(user_id=user.id)
         if user_id in user_id:
             carts = CartItem.objects.all()
-            order = OrderItem.objects.get(id=order_id)
+            order = carts.objects.all()
             new_order, created = Order.objects.get_or_create(order=order)
             if created:
                 new_order.order_id = str(time.time())
                 new_order.save()
             if new_order.status == "Finished":
                 cart.delete()
-
-            return render(request, 'cart/checkout.html')
-            # c1 = carts.append(user_id.order_id)
-            # c1.save()
+    context = {
+        # "form": form,
+        # "forms": forms
+    }
+    return render(request, 'cart/checkout.html', context)
 
     # if request.method == 'POST':
     #     first_name = request.POST['first_name']
@@ -185,6 +213,3 @@ def checkout(request):
     #         "form": form
     #     }
     #     return render(request, 'cart/add_to_cart.html', context)
-
-    # def search(request):
-    #     return render(request, '../search.html')

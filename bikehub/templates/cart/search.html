@@ -9,6 +9,60 @@
 {% block content %}
 
 
+<div class="container mt-5">
+    <h1>Search Bike related information</h1>
+    <form action="{% url 'cart:search' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-lg-5">
+                <input type="text" name="srh" class="form-control" placeholder="Enter your bike name / bike price">
+            </div>
+            <label class="col-lg-2">
+                <button type="submit" class="btn btn-secondary btn-block">Search</button>
+            </label>
+
+        </div>
+
+
+    </form>
+</div>
+<br>
+<div>
+    {% if messages %}
+    <ul class="messages">
+        {% for k in messages %}
+        <li style="color:red">{{k}}</li>
+        {% endfor %}
+
+    </ul>
+
+    {% endif %}
+</div><br>
+
+
+{% if sr %}
+{% for k in  sr %}
+<div class="container-5">
+    <div class="row">
+        <div class="col-sm-6">
+
+            {{k}}.{{bike.image.url}}<br>
+            Name:{{k.name}}<br>
+            price:{{k.price}}<br>
+            {{k.content}}
+        </div>
+        <div class="col-sm-6">
+            <a href="{% url 'cart:add_to_cart' %}" method="POST"><button class="btn btn-primary">Add to
+                    Cart</button></a>
+        </div>
+
+    </div>
+</div>
+
+{% endfor %}
+{% endif %}
+
+
 
 
 
