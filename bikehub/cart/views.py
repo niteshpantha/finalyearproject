@@ -110,48 +110,108 @@ def search(request):
 def checkout(request):
 
     if request.method == 'POST':
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        email = request.POST['email']
-        address = request.POST['address']
-        city = request.POST['city']
-        user = auth.authenticate(first_name=first_name,
-                                 last_name=last_name, email=email)
-        if user.is_authenticated:
-            if user.is_active:
-                return redirect('/ratings/')
-            else:
-                return HttpResponse('You dont have an account with us')
+        form = OrderItemForm(request.POST)
+        form.data['order_id'] = order.id
 
-        form = CartItemForm(request.POST)
-        forms = OrderItemForm(request.POST)
-        if form.is_valid():
-            form.save()
-            forms.save()
-            print(form.data)
-            print(forms.data)
-            user = request.user
-            cart = Cart.objects.get(user_id=user.id)
-            if user_id in user_id:
-                carts = CartItem.objects.all()
-                order = OrderItem.objects.all()
-                if order in order:
-                    c1 = carts.copy()
-                    c2 = c1.save()
+        cart = Cart.objects.get(id=user_id)
+        if user_id in user_id:
+            c1 = CartItem.objects.all()
+            c2 = OrderItem.objects.all()
+            c2 = c1.copy()
+            c1.delete()
+            if c2 in c2:
+                c3 = OrderItem.objects.get(id=order_id)
+                c4 = Order.objects.create()
+                c4 = c3.copy()
+                c4.save()
+                first_name = request.POST['first_name']
+                last_name = request.POST['last_name']
+                email = request.POST['email']
+                address = request.POST['address']
+                city = request.POST['city']
+                user = auth.authenticate(first_name=first_name,
+                                         last_name=last_name, email=email)
+                if user.is_authenticated:
+                    print('You have successfully make a checkout.')
+                    return render(request, 'cart/ratings.html')
+                else:
+                    redirect('/cart/checkout/')
+        else:
+            return redirect("/cart/add_to_cart")
+    return render(request, 'cart/checkout.html')
+    # if request.method == 'POST':
+    #     form = OrderItemForm(request.POST)
+    #     cart = Cart.objects.get(id=user_id)
+    #     if user_id in user_id:
+    #         c1 = CartItem.objects.all()
+    #         # form = c1.copy()
 
-                    new_order, created = order.objects.get_or_create(
-                        order=order)
-                    if created:
-                        new_order.order_id = str(time.time())
-                        new_order.save()
-                    if new_order.status == "Finished":
-                        cart.delete()
-    context = {
-        # "form": form,
-        # "forms": forms
-    }
-    return render(request, 'cart/checkout.html', context)
+    #         form.save()
+    #         if form.is_valid():
+    #             print(form.data)
+    #             c1.delete()
+    #             c2 = OrderItem.objects.get(id=order_id)
+    #             c2 = form.copy()
+    #             c2.save()
+    #             if order_id in order_id:
+    #                 c3 = Order.objects.all()
+    #                 c3.save()
+    #                 first_name = request.POST['first_name']
+    #                 last_name = request.POST['last_name']
+    #                 email = request.POST['email']
+    #                 address = request.POST['address']
+    #                 city = request.POST['city']
+    #                 user = auth.authenticate(first_name=first_name,
+    #                                          last_name=last_name, email=email)
+    #                 if user.is_authenticated:
+    #                     print('You have successfully make a checkout.')
+    #                     return render(request, 'cart/ratings.html')
+    #                 else:
+    #                     redirect('/cart/checkout/')
+    #     return HttpResponse('Error submiting form')
 
 
 def ratings(request):
     return render(request, 'cart/ratings.html')
+
+
+# if request.method == 'POST':
+    #     first_name = request.POST['first_name']
+    #     last_name = request.POST['last_name']
+    #     email = request.POST['email']
+    #     address = request.POST['address']
+    #     city = request.POST['city']
+    #     user = auth.authenticate(first_name=first_name,
+    #                              last_name=last_name, email=email)
+    #     if user.is_authenticated:
+    #         if user.is_active:
+    #             return redirect('/ratings/')
+    #         else:
+    #             return HttpResponse('You dont have an account with us')
+
+    # form = CartItemForm(request.POST)
+    # forms = OrderItemForm(request.POST)
+    # if form.is_valid():
+    # form.save()
+    #     forms.save()
+    #     print(form.data)
+    #     print(forms.data)
+    #     user = request.user
+    #     cart = Cart.objects.get(user_id=user.id)
+    #     if user_id in user_id:
+    #         carts = CartItem.objects.all()
+    #         order = OrderItem.objects.all()
+    #         if order in order:
+    #             c1 = carts.copy()
+    #             c2 = c1.save()
+
+    #             new_order, created = order.objects.get_or_create(
+    #                 order=order)
+    #             if created:
+    #                 new_order.order_id = str(time.time())
+    #                 new_order.save()
+    #             if new_order.status == "Finished":
+    #                 cart.delete()
+    #                 c3 = new_order
+    #                 c3 = new_order.copy()
+    # return render(request, 'cart/checkout.html')

@@ -60,7 +60,7 @@ class Order(models.Model):
         max_length=120, choices=STATUS_CHOICES, null=True)
     first_name = models.CharField(max_length=120, default="nitesh")
     last_name = models.CharField(max_length=120, default="pantha")
-    Email = models.EmailField("Email", max_length=250,
+    email = models.EmailField("email", max_length=250,
                               default="niteshraz619@gmail.com")
     address = models.CharField(
         max_length=250, default="Bhaktapur-5 , Ghattaghar")
